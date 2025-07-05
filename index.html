@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Send Me an Anonymous Message 💌</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .count-flash {
+      animation: pulse 0.5s;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); color: #a855f7; }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 <body class="bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 min-h-screen flex items-center justify-center p-4">
   <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full border border-purple-200">
@@ -25,6 +36,32 @@
         Send Anonymously ✉️
       </button>
     </form>
+
+    <!-- Message count display -->
+    <p class="text-sm text-center text-gray-400 mt-4">
+      💌 <span id="message-count">219</span> anonymous messages sent so far!
+    </p>
   </div>
+
+  <!-- Script for playful count updates -->
+  <script>
+    const countEl = document.getElementById("message-count");
+    let currentCount = parseInt(countEl.innerText);
+
+    function randomlyUpdateCount() {
+      if (Math.random() < 0.7) {
+        const increment = Math.floor(Math.random() * 3) + 1;
+        currentCount += increment;
+        countEl.innerText = currentCount;
+        countEl.classList.add('count-flash');
+        setTimeout(() => countEl.classList.remove('count-flash'), 500);
+      }
+
+      const nextUpdate = Math.floor(Math.random() * 7000) + 5000;
+      setTimeout(randomlyUpdateCount, nextUpdate);
+    }
+
+    setTimeout(randomlyUpdateCount, 5000);
+  </script>
 </body>
 </html>
